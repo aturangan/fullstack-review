@@ -6,15 +6,22 @@ class Search extends React.Component {
     this.state = {
       term: ''
     }
+
+    this.onChange =  this.onChange.bind(this); 
   }
 
-  onChange (e) {
+  onChange(e) {
+    console.log('THISSS', this); 
+
     this.setState({
       term: e.target.value
     });
+
+    this.search = this.search.bind(this); 
   }
 
   search() {
+
     this.props.onSearch(this.state.term);
   }
 
@@ -28,3 +35,41 @@ class Search extends React.Component {
 }
 
 export default Search;
+
+
+/*
+
+loadCommentsFromServer: function() {
+      $.ajax({
+        url: this.props.url,
+        dataType: 'json',
+        cache: false,
+        success: function(data) {
+
+        this.setState({data: data}); // Notice this
+
+      }.bind(this),
+
+      error: function(xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+  }
+
+
+  loadServerResults: function() {
+      $.ajax({
+        url: this.props.url,
+        dataType: 'json', 
+        cache: false,
+        success: function(data) {
+          this.setState({data: data});
+
+        }.bind(this),
+
+        error: function(xhr, status, err) {
+          console.error(this.props.url, status, err.toString());
+        }.bind(this)
+      });
+    }
+*/
