@@ -1,19 +1,40 @@
 var express = require('express');
 
+//correct path?
+var request = require('request');
+
 var app = express();
 
 app.use(express.static(__dirname + '/../client/dist'));
 
-app.post('/repos/import', function (req, res) {
+app.post('/repos/import', function (req, res) { 
 
-  console.log('Post requested'); 
+  //request parameters?
+  //need to save term somehow 
+  //is the request library working?
 
-  res.send('post request to /repos/import');
+  var user_id = req.param('id');
+  var token = req.param('token');
+  var geo = req.param('geo');  
 
+  res.send(req + user_id + ' ' + token + ' ' + geo);
 });
 
+//   request('https://developer.github.com/v3/', function(error, response, body) {
+//     console.log('error:', error); // Print the error if one occurred 
+//   //console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received 
+//     console.log('body:', body);
+//   });
+
+//   //store term in post request 
+//   //use npm request library to fetch user's github
+//   //repositories from the Github API
+
+//   res.send('THIS IS THE REQ');
+
+// });
+
 app.get('/repos', function (req, res) {
-  console.log('The request was received');
 
   res.send('get request to /repos'); 
 
@@ -24,11 +45,3 @@ var port = 1128;
 app.listen(port, function() {
   console.log(`listening on port ${port}`);
 });
-
-//what file to add the ajax/jquery?
-//every time you send a get request on post man, it'll 
-//console log to the terminal 
-
-// When a user types a github username into the text field, 
-// use jQuery's ajax method to send a POST request to /repos/import (you'll 
-// have to fix the bug in the Search Component first).

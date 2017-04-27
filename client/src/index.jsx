@@ -15,7 +15,32 @@ class App extends React.Component {
 
   search (term) {
     console.log(`${term} was searched`);
-    // TODO
+
+    //sending a get request on the console 
+    //want to send post 
+
+    //check ajax syntax for success method 
+      //not reaching ajax request?
+    //repos/import doesn't give error, but doesn't console.log('success'); 
+
+    $.ajax({
+      url: 'http://127.0.0.1:1128/repos/import',
+      type: 'POST', 
+      data: JSON.stringify({"term": `${term}`}),
+      //JSON.stringify({'login': `${term}`}),
+
+      success: function(response) {
+        //the response should be the profile
+        //need to send term to post 
+        console.log(response); 
+        console.log('success');   
+      },
+
+      error: function(request, err) {
+        console.log('error');
+      }
+
+    });
   }
 
   render () {
