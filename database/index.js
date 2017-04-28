@@ -8,7 +8,7 @@ mongoose.connect('mongodb://localhost/fetcher', function(err, db) {
 
 var repoSchema = mongoose.Schema({
 
-  //data from the Github API 
+  //schema for data from the Github API 
   id: Number, 
   name: String,
   full_name: String, 
