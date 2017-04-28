@@ -26,14 +26,15 @@ class App extends React.Component {
     $.ajax({
       url: 'http://127.0.0.1:1128/repos/import',
       type: 'POST', 
-      data: JSON.stringify({"term": `${term}`}),
+      data: JSON.stringify({"term": `${term}`}), 
+      contentType: 'application/json',
       //JSON.stringify({'login': `${term}`}),
 
       success: function(response) {
         //the response should be the profile
         //need to send term to post 
         console.log(response); 
-        console.log('success');   
+        console.log('success');
       },
 
       error: function(request, err) {

@@ -1,4 +1,6 @@
 var express = require('express');
+var bodyParser = require('body-parser');
+var user = require('../database');
 
 //correct path?
 var request = require('request');
@@ -6,36 +8,35 @@ var request = require('request');
 var app = express();
 
 app.use(express.static(__dirname + '/../client/dist'));
+app.use(bodyParser.json());
 
 app.post('/repos/import', function (req, res) { 
 
-  //request parameters?
-  //need to save term somehow 
-  //is the request library working?
+  console.log('USERNAME'), req.body.term;
 
-  var user_id = req.param('id');
-  var token = req.param('token');
-  var geo = req.param('geo');  
+  var user = {
+    url: 'https://api.github.com/users/' + req.body.term + '/repos' + '?client_id=8e1af2e2fd8fdde3efc8&client_secret=731cad15b2fb86040c1c9b20a2b2cbad6b2b7ab3',
+    headers: {
+      'User-Agent': 'aturangan'
+    }
+  }
 
-  res.send(req + user_id + ' ' + token + ' ' + geo);
+  request(user, function (error, response, data) {
+    if (!error) {
+      user.id = data[0].id;
+      user.name = data[0].name;
+      user.full_name = data[0].full_name; 
+      user.owner = data[0].owner; 
+
+      res.send(user); 
+    } else {
+      res.send(404); 
+    }
+  });
 });
 
-//   request('https://developer.github.com/v3/', function(error, response, body) {
-//     console.log('error:', error); // Print the error if one occurred 
-//   //console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received 
-//     console.log('body:', body);
-//   });
-
-//   //store term in post request 
-//   //use npm request library to fetch user's github
-//   //repositories from the Github API
-
-//   res.send('THIS IS THE REQ');
-
-// });
 
 app.get('/repos', function (req, res) {
-
   res.send('get request to /repos'); 
 
 });
